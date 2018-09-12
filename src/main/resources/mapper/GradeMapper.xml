@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.GradeMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.Grade">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+    <result column="course_id" jdbcType="INTEGER" property="course_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="course_name" />
+    <result column="grade" jdbcType="DOUBLE" property="grade" />
+    <result column="usual_grade" jdbcType="DOUBLE" property="usual_grade" />
+    <result column="final_grade" jdbcType="DOUBLE" property="final_grade" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap id="FindGradeByStudentResultMap" type="com.hnnd.entity.Grade">
+    <id column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="course_id" jdbcType="INTEGER" property="course_id" />
+    <result column="course_name" jdbcType="VARCHAR" property="course_name" />
+    <result column="grade" jdbcType="DOUBLE" property="grade" />
+    <result column="usual_grade" jdbcType="DOUBLE" property="usual_grade" />
+    <result column="final_grade" jdbcType="DOUBLE" property="final_grade" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, course_id, grade, usual_grade, final_grade, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectAll" resultMap="BaseResultMap">
+  select grade.id, course_id ,grade.user_id,user.name, course_name, grade, usual_grade, final_grade, remark
+  from grade,user,course       
+  where grade.user_id=user.id and grade.course_id=course.id 
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" >
+  select grade.id, user.name, course_name, grade, usual_grade, final_grade, remark
+  from grade,user,course       
+  where grade.user_id=user.id and grade.course_id=course.id  
+          <if test="start!=null and pageSize!=null">
+                    limit #{start},#{pageSize}
+            </if>
+  </select>
+  
+  <select id="selectErrorByPage" parameterType="java.lang.String" resultMap="BaseResultMap" >
+  select grade.id, user.name, course_name, grade, usual_grade, final_grade, remark
+   from grade,user,course 
+   where grade.user_id=user.id and grade.course_id=course.id and remark=#{remark};
+  
+  </select>
+  
+  <select id="selectByStudent" resultMap="FindGradeByStudentResultMap">
+    select course_id,course_name,grade,usual_grade,final_grade,remark
+    from course,grade
+    where user_id=#{user_id} and course.id = grade.course_id;
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.Grade" useGeneratedKeys="true">
+    insert into grade (id, user_id, course_id, grade, 
+      usual_grade, final_grade, remark
+      )
+    values (#{id,jdbcType=INTEGER},#{user_id,jdbcType=INTEGER}, #{course_id,jdbcType=INTEGER}, #{grade,jdbcType=DOUBLE}, 
+      #{usual_grade,jdbcType=DOUBLE}, #{final_grade,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.Grade" useGeneratedKeys="true">
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="course_id != null">
+        course_id,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="usual_grade != null">
+        usual_grade,
+      </if>
+      <if test="final_grade != null">
+        final_grade,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="course_id != null">
+        #{course_id,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=DOUBLE},
+      </if>
+      <if test="usual_grade != null">
+        #{usual_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="final_grade != null">
+        #{final_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateErrorMessage" parameterType="com.hnnd.entity.Grade">
+  update grade set remark = #{remark,jdbcType=VARCHAR} where user_id = #{user_id} and course_id = #{course_id}
+  </update>
+  
+  <update id="updateByViolate" parameterType="com.hnnd.entity.Grade">
+  update grade set remark = #{remark,jdbcType=VARCHAR} where id = #{id}
+  </update> 
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.Grade">
+    update grade
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="course_id != null">
+        course_id = #{course_id,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=DOUBLE},
+      </if>
+      <if test="usual_grade != null">
+        usual_grade = #{usual_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="final_grade != null">
+        final_grade = #{final_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="update" parameterType="com.hnnd.entity.Grade">
+    update grade
+    set grade = #{grade,jdbcType=DOUBLE},
+      usual_grade = #{usual_grade,jdbcType=DOUBLE},
+      final_grade = #{final_grade,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getTotal" resultType="java.lang.Integer">
+  select count(*) from Grade;
+  </select>
+  
+</mapper>

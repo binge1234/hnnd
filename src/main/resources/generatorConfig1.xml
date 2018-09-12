@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  
+    <context id="DB2Tables"    targetRuntime="MyBatis3">
+        <!--避免生成重复代码的插件-->
+        <plugin type="com.hnnd.util.sys.OverIsMergeablePlugin" />
+  
+        <!--是否在代码中显示注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+  
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/scsystem" userId="root" password="">
+        </jdbcConnection>
+        <!--不知道做什么用的。。。反正贴上来了~-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成pojo类存放位置-->
+        <javaModelGenerator targetPackage="com.hnnd.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成xml映射文件存放位置-->
+        <sqlMapGenerator targetPackage="com.hnnd.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成mapper类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hnnd.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+  
+        <!--生成对应表及类名-->
+        <!-- 考试报名表 -->
+        <table tableName="apply_exam_info" domainObjectName="ApplyExamInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <!-- 课程教材-->
+        <table tableName="book" domainObjectName="Book" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        
+        <!-- 资质证明-->
+        <table tableName="certificate" domainObjectName="Certificate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <!-- 课程-->
+        <table tableName="course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <!-- 考试教室-->
+        <table tableName="exam_classroom" domainObjectName="ExamClassroom" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+         <!-- 考试地点-->
+        <table tableName="exam_location" domainObjectName="ExamLocation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table> 
+        <!-- 考试省份-->
+        <table tableName="exam_province" domainObjectName="ExamProvince" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table> 
+        
+        <!-- 考试学校-->
+        <table tableName="school" domainObjectName="School" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+         
+         <!-- 成绩修改申请-->
+        <table tableName="grade_retrial" domainObjectName="GradeRetrial" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table> 
+        
+          <!-- 成绩-->
+        <table tableName="grade" domainObjectName="Grade" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        
+          <!-- 违纪情况-->
+        <table tableName="violation" domainObjectName="Violation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+          <!-- 免考申请-->
+        <table tableName="free_exam_apply" domainObjectName="FreeExamInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>        
+        
+    </context>
+</generatorConfiguration>

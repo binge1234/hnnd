@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.CodeForCityMapper">
+	<resultMap id="BaseResultMap" type="com.hnnd.entity.CodeForCity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="citycode" jdbcType="INTEGER" property="citycode" />
+		<result column="city_name" jdbcType="VARCHAR" property="city_name" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, citycode,city_name
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select citycode, city_name
+		from codeforcity;
+	</select>
+</mapper>

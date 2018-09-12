@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.shiro.Role">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="startDate" jdbcType="DATE" property="startDate" />
+    <result column="updateDate" jdbcType="DATE" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, remark, startDate, updateDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.shiro.Role" useGeneratedKeys="true">
+    insert into role (name, remark, startDate, 
+      updateDate)
+    values (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
+      #{updateDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.shiro.Role" useGeneratedKeys="true">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="startDate != null">
+        startDate,
+      </if>
+      <if test="updateDate != null">
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.shiro.Role">
+    update role
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        startDate = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null">
+        updateDate = #{updateDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hnnd.entity.shiro.Role">
+    update role
+    set name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      startDate = #{startDate,jdbcType=DATE},
+      updateDate = #{updateDate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

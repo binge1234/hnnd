@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="book_id" jdbcType="INTEGER" property="book_id" />
+    <result column="major_id" jdbcType="INTEGER" property="major_id" />
+    <result column="normal_credits" jdbcType="DOUBLE" property="normal_credits" />
+    <result column="free_credits" jdbcType="DOUBLE" property="free_credits" />
+    <result column="free_grade" jdbcType="DOUBLE" property="free_grade" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" property="type" 
+    typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    <result column="cost" jdbcType="DOUBLE" property="cost" />
+    <result column="grade_proportion" jdbcType="DOUBLE" property="grade_proportion" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="start_time" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="end_time" />
+    <result column="exam_time" jdbcType="TIMESTAMP" property="exam_time" />
+    <result column="course_name" jdbcType="VARCHAR" property="course_name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_id, major_id, normal_credits, free_credits, free_grade, status, type, cost, 
+    grade_proportion, start_time, end_time, exam_time, course_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.Course" useGeneratedKeys="true">
+    insert into course (book_id, major_id, normal_credits, 
+      free_credits, free_grade, status, 
+      type, cost, grade_proportion, 
+      start_time, end_time, exam_time, 
+      course_name)
+    values (#{book_id,jdbcType=INTEGER}, #{major_id,jdbcType=INTEGER}, #{normal_credits,jdbcType=DOUBLE}, 
+      #{free_credits,jdbcType=DOUBLE}, #{free_grade,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, 
+      #{type,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{cost,jdbcType=DOUBLE}, #{grade_proportion,jdbcType=DOUBLE}, 
+      #{start_time,jdbcType=TIMESTAMP}, #{end_time,jdbcType=TIMESTAMP}, #{exam_time,jdbcType=TIMESTAMP}, 
+      #{course_name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.Course" useGeneratedKeys="true">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="book_id != null">
+        book_id,
+      </if>
+      <if test="major_id != null">
+        major_id,
+      </if>
+      <if test="normal_credits != null">
+        normal_credits,
+      </if>
+      <if test="free_credits != null">
+        free_credits,
+      </if>
+      <if test="free_grade != null">
+        free_grade,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="grade_proportion != null">
+        grade_proportion,
+      </if>
+      <if test="start_time != null">
+        start_time,
+      </if>
+      <if test="end_time != null">
+        end_time,
+      </if>
+	  <if test="exam_time != null">
+        exam_time,
+      </if>
+      <if test="course_name != null">
+        course_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="book_id != null">
+        #{book_id,jdbcType=INTEGER},
+      </if>
+      <if test="major_id != null">
+        #{major_id,jdbcType=INTEGER},
+      </if>
+      <if test="normal_credits != null">
+        #{normal_credits,jdbcType=DOUBLE},
+      </if>
+      <if test="free_credits != null">
+        #{free_credits,jdbcType=DOUBLE},
+      </if>
+      <if test="free_grade != null">
+        #{free_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="grade_proportion != null">
+        #{grade_proportion,jdbcType=DOUBLE},
+      </if>
+      <if test="start_time != null">
+        #{start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_time != null">
+        #{end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exam_time != null">
+        #{exam_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="course_name != null">
+        #{course_name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.Course">
+    update course
+    <set>
+      <if test="book_id != null">
+        book_id = #{book_id,jdbcType=INTEGER},
+      </if>
+      <if test="major_id != null">
+        major_id = #{major_id,jdbcType=INTEGER},
+      </if>
+      <if test="normal_credits != null">
+        normal_credits = #{normal_credits,jdbcType=DOUBLE},
+      </if>
+      <if test="free_credits != null">
+        free_credits = #{free_credits,jdbcType=DOUBLE},
+      </if>
+      <if test="free_grade != null">
+        free_grade = #{free_grade,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="grade_proportion != null">
+        grade_proportion = #{grade_proportion,jdbcType=DOUBLE},
+      </if>
+      <if test="start_time != null">
+        start_time = #{start_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="end_time != null">
+        end_time = #{end_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exam_time != null">
+        exam_time = #{exam_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="course_name != null">
+        course_name = #{course_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hnnd.entity.Course">
+    update course
+    set book_id = #{book_id,jdbcType=INTEGER},
+      major_id = #{major_id,jdbcType=INTEGER},
+      normal_credits = #{normal_credits,jdbcType=DOUBLE},
+      free_credits = #{free_credits,jdbcType=DOUBLE},
+      free_grade = #{free_grade,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+      cost = #{cost,jdbcType=DOUBLE},
+      grade_proportion = #{grade_proportion,jdbcType=DOUBLE},
+      start_time = #{start_time,jdbcType=TIMESTAMP},
+      end_time = #{end_time,jdbcType=TIMESTAMP},
+      exam_time = #{exam_time,jdbcType=TIMESTAMP},
+      course_name = #{course_name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+	<select id="selectByPage" resultMap="BaseResultMap">
+		select * from Course 
+	<if test="start!=null and pageSize!=null">
+		limit #{start},#{pageSize}
+	</if>
+	</select>
+	
+	<select id="getTotal" resultType="java.lang.Integer">
+		select count(*) from Course;
+	</select>
+	
+	<update id="updateByType" parameterType="com.hnnd.entity.Course">
+  		update Course set type = #{type,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler} where id = #{id};
+  	</update>
+  	
+  	<select id="selectAll" resultMap="BaseResultMap">
+		select * from Course;
+	</select>
+	<select id="selectMajorByPrimaryKey" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select major_id
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>

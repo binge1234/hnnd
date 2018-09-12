@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<div>
+		<h1 class="page-header" style="color:#269ABC;font-size: 30px;">四川省教育考试院中心&nbsp;&nbsp;&nbsp;&nbsp;
+		<small>欢迎您，${name} ！</small>
+	</h1>
+
+		<div style="margin:20px 0 10px 0;"></div>
+		<div class="easyui-accordion" style="width:300px;height:600px;">
+			<div title="首页" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+				<h3 style="color:#0099FF;">Accordion for jQuery</h3>
+				<p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+			</div>
+			<div title="专业计划管理" style="padding:10px;">
+
+				<a href="javascript:openTab('专业管理','hello.html','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 200px;">专业管理</a>
+				<a href="${pageContext.request.contextPath}/major/manage2" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 200px;">专业课程管理</a>
+				<a href="${pageContext.request.contextPath}/major/manage3" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 200px;">课程及教材管理</a>
+				<a href="${pageContext.request.contextPath}/major/manage4" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 200px;">课程收费标准管理</a>
+
+			</div>
+			<div title="考试计划管理" style="padding:10px;"></div>
+			<div title="用户管理" style="padding:10px;"></div>
+			<div title="权限管理" style="padding:10px;"></div>
+			<div title="帮助" data-options="iconCls:'icon-help'" style="padding:10px;">
+				<p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+			</div>
+			<div title="关于系统" data-options="iconCls:'icon-search'" style="padding:10px;">
+
+			</div>
+			  <div class="easyui-tabs" fit="true" border="false" id="tabs">
+        <div title="首页" data-options="iconCls:'icon-home'">
+            <div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
+        </div>
+    </div>
+		</div>

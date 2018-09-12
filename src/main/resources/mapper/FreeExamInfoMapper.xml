@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.FreeExamInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.FreeExamInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="course_id" jdbcType="INTEGER" property="course_id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hnnd.entity.FreeExamInfo">
+    <result column="picture" jdbcType="LONGVARBINARY" property="picture" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, course_id, user_id, status, source
+  </sql>
+  <sql id="Blob_Column_List">
+    picture
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from free_exam_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from free_exam_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.FreeExamInfo" useGeneratedKeys="true">
+    insert into free_exam_apply (course_id, user_id, status, 
+      source, picture)
+    values (#{course_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{source,jdbcType=VARCHAR}, #{picture,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.FreeExamInfo" useGeneratedKeys="true">
+    insert into free_exam_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="course_id != null">
+        course_id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="course_id != null">
+        #{course_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.FreeExamInfo">
+    update free_exam_apply
+    <set>
+      <if test="course_id != null">
+        course_id = #{course_id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hnnd.entity.FreeExamInfo">
+    update free_exam_apply
+    set course_id = #{course_id,jdbcType=INTEGER},
+      user_id = #{user_id,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      source = #{source,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hnnd.entity.FreeExamInfo">
+    update free_exam_apply
+    set course_id = #{course_id,jdbcType=INTEGER},
+      user_id = #{user_id,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

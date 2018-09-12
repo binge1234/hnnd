@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.ExamProvinceMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.ExamProvince">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, province
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_province
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_province
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.ExamProvince" useGeneratedKeys="true">
+    insert into exam_province (user_id, province)
+    values (#{user_id,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.ExamProvince" useGeneratedKeys="true">
+    insert into exam_province
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.ExamProvince">
+    update exam_province
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hnnd.entity.ExamProvince">
+    update exam_province
+    set user_id = #{user_id,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

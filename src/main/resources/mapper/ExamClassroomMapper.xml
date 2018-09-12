@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.ExamClassroomMapper">
+  <resultMap id="BaseResultMap" type="com.hnnd.entity.ExamClassroom">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exam_location_id" jdbcType="INTEGER" property="exam_location_id" />
+    <result column="teaching_building" jdbcType="VARCHAR" property="teaching_building" />
+    <result column="classroom" jdbcType="VARCHAR" property="classroom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, exam_location_id, teaching_building, classroom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_classroom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectClassroomCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from exam_classroom
+  	where exam_location_id=#{locationId,jdbcType=INTEGER};
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_classroom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.ExamClassroom" useGeneratedKeys="true">
+    insert into exam_classroom (exam_location_id, teaching_building, classroom)
+    values (#{exam_location_id,jdbcType=INTEGER}, #{teaching_building,jdbcType=VARCHAR}, 
+      #{classroom,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hnnd.entity.ExamClassroom" useGeneratedKeys="true">
+    insert into exam_classroom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exam_location_id != null">
+        exam_location_id,
+      </if>
+      <if test="teaching_building != null">
+        teaching_building,
+      </if>
+      <if test="classroom != null">
+        classroom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exam_location_id != null">
+        #{exam_location_id,jdbcType=INTEGER},
+      </if>
+      <if test="teaching_building != null">
+        #{teaching_building,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null">
+        #{classroom,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hnnd.entity.ExamClassroom">
+    update exam_classroom
+    <set>
+      <if test="exam_location_id != null">
+        exam_location_id = #{exam_location_id,jdbcType=INTEGER},
+      </if>
+      <if test="teaching_building != null">
+        teaching_building = #{teaching_building,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null">
+        classroom = #{classroom,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hnnd.entity.ExamClassroom">
+    update exam_classroom
+    set exam_location_id = #{exam_location_id,jdbcType=INTEGER},
+      teaching_building = #{teaching_building,jdbcType=VARCHAR},
+      classroom = #{classroom,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

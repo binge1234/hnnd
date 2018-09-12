@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+
+         
+    <mapper namespace="com.hnnd.dao.NoticeMapper">
+         
+         
+        <select id="select" resultType="com.hnnd.entity.Notice">
+            select * from notice where id= 1  
+        </select>
+        <update id="update" parameterType="com.hnnd.entity.Notice" >
+            update notice set gstate=#{gstate},astate=#{astate} where id=1   
+        </update>           
+    </mapper>

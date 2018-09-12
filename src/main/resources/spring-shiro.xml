@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- Shiro与Spring整合 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 关联SecurityManager -->
+		<property name="securityManager" ref="securityManager"/>
+		
+	    <property name="filters">
+            <util:map>
+                <entry key="url" value-ref="urlPathMatchingFilter" />
+            </util:map>
+        </property>
+		
+		<!-- 使用Shiro的内置过滤器拦截资源 -->
+		<property name="filterChainDefinitions">
+			<value>
+			<!-- anon表示此地址不需要任何权限即可访问 -->
+			<!-- 对于登录请求以及静态资源的请求等都不设置访问权限，即不需要权限就可以访问-->
+			/hello=anon
+			/login=anon
+            /static/**=anon
+            /kaptcha-image=anon
+            /user/userRegister=anon
+            /** = url
+           
+     
+			</value>
+		</property>
+		   <!-- 添加过滤器 -->
+
+		<!-- 修改shiro的默认登录请求 -->
+		 <property name="loginUrl" value="/toLogin"/>  
+		<!-- 添加未授权提示页面 -->
+		<property name="unauthorizedUrl" value="/exception/500"/>
+	</bean>
+	
+
+    <!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 关联realm -->
+		<property name="realm" ref="realm"/>
+		
+		
+		<!--  <property name="sessionManager" ref="sessionManager" /> -->
+	</bean>
+
+  
+	<!-- 自定义realm-->
+	<bean id="realm" class="com.hnnd.realm.MyRealm"/>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+<bean id="urlPathMatchingFilter" class="com.hnnd.config.filter.URLPathMatchingFilter"/>
+	
+</beans>

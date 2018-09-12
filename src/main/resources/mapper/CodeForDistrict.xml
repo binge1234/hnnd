@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hnnd.dao.CodeForDistrictMapper">
+	<resultMap id="BaseResultMap" type="com.hnnd.entity.CodeForDistrict">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="districtcode" jdbcType="INTEGER" property="districtcode" />
+		<result column="district_name" jdbcType="VARCHAR" property="district_name" />
+		<result column="citycode" jdbcType="INTEGER" property="citycode" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, districtcode, district_name, citycode
+	</sql>
+	<select id="selectByCity" resultMap="BaseResultMap">
+		select districtcode, district_name
+		from codefordistrict
+		where citycode=#{citycode};
+	</select>
+</mapper>
